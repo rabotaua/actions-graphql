@@ -36,7 +36,7 @@ runs:
     - name: npm install
       shell: bash
       working-directory: .github/mavis
-      run: npm install
+      run: npm install > /dev/null
 
     - name: mavis
       shell: bash
