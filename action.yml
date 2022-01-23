@@ -1,0 +1,49 @@
+name: graphql
+description: GitHub Action GraphQL Checks
+inputs:
+
+  service:
+    description: name of the service in graphql
+    required: true
+
+  endpoint:
+    description: endpoint where graphql schema can be retrieved
+    required: true
+
+  key:
+    description: apollo key
+    required: true
+
+  token:
+    description: github token with read privileges
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+    - uses: actions/checkout@v2
+      with:
+        repository: rabotaua/mavis
+        ref: master
+        token: ${{ inputs.token }}
+        path: .github/mavis
+
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: npm install
+      shell: bash
+      working-directory: .github/mavis
+      run: npm install
+
+    - name: mavis
+      shell: bash
+      working-directory: .github/mavis
+      run: node cli.js ${{ inputs.endpoint }} ${{ inputs.service }}
+
+    - name: apollo
+      shell: bash
+      working-directory: .github/mavis
+      run: npx apollo service:check --serviceName=${{ inputs.service }} --graph=dracula --key=${{ inputs.key }} --endpoint=${{ inputs.endpoint }}
