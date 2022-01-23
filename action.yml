@@ -42,6 +42,8 @@ runs:
       shell: bash
       working-directory: .github/mavis
       run: node cli.js ${{ inputs.endpoint }} ${{ inputs.service }}
+      env:
+        APOLLO_KEY: ${{ inputs.key }}
 
     - name: apollo
       shell: bash
