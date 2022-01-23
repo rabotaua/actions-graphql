@@ -11,11 +11,37 @@ GitHub Action to persorm GraphQL checks
 
 ## Example usage
 
+Chain:
+- docker build
+- docker run
+- graphql action
+- docker push
+
 ```yml
+- name: docker build
+  run: docker build -t $IMAGE .
+
+- name: docker run
+  run: docker run -d --name=service -p 5000:80 $IMAGE
+
+
+# Put me between `docker build` and `docker push`
 - uses: rabotaua/actions-graphql@main
   with:
     endpoint: http://localhost:5000/graphql
     service: vacancies
     token: ${{ secrets.GH_TOKEN }}
     key: ${{ secrets.APOLLO_KEY }}
+
+
+- name: docker logs
+  if: always()
+  run: docker logs service
+
+- name: docker rm
+  if: always()
+  run: docker rm -f service
+
+- name: docker push
+  run: docker push $IMAGE:$VERSION
 ```
