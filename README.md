@@ -16,6 +16,6 @@ GitHub Action to persorm GraphQL checks
   with:
     endpoint: http://localhost:5000/graphql
     service: vacancies
-    token: ${{ secrets.GITHUB_TOKEN }}
+    token: ${{ secrets.GH_TOKEN }}
     key: ${{ secrets.APOLLO_KEY }}
 ```
