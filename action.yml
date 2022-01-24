@@ -42,9 +42,8 @@ runs:
       shell: bash
       working-directory: .github/mavis
       run: node cli.js ${{ inputs.endpoint }} ${{ inputs.service }}
-      # Temporary turn off composition check - https://github.com/apollographql/apollo-server/issues/6019
-      # env:
-      #   APOLLO_KEY: ${{ inputs.key }}
+      env:
+        APOLLO_KEY: ${{ inputs.key }}
 
     - name: apollo
       shell: bash
