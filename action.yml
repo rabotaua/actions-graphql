@@ -49,5 +49,4 @@ runs:
         APOLLO_KEY: ${{ inputs.key }}
       run: |
         curl -sSL https://rover.apollo.dev/nix/v0.22.0 | sh
-        echo "$HOME/.rover/bin" >> $GITHUB_PATH
-        rover subgraph introspect ${{ inputs.endpoint }} | rover subgraph check 'dracula@current' --name ${{ inputs.service }} --schema -
+        /home/runner/.rover/bin/rover subgraph introspect ${{ inputs.endpoint }} | rover subgraph check 'dracula@current' --name ${{ inputs.service }} --schema -
