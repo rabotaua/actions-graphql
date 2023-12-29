@@ -27,6 +27,10 @@ runs:
         token: ${{ inputs.token }}
         path: .github/mavis
 
+    - uses: actions/setup-node@v4.0.0
+      with:
+        node-version: 16
+
     - name: npm install
       shell: bash
       working-directory: .github/mavis
