@@ -27,10 +27,6 @@ runs:
         token: ${{ inputs.token }}
         path: .github/mavis
 
-    - uses: actions/setup-node@v4.0.0
-      with:
-        node-version: 16
-
     - name: npm install
       shell: bash
       working-directory: .github/mavis
@@ -43,7 +39,15 @@ runs:
       #env:
       #  APOLLO_KEY: ${{ inputs.key }}
 
-    - name: apollo
+    # - name: apollo
+    #   shell: bash
+    #   working-directory: .github/mavis
+    #   run: npx apollo service:check --serviceName=${{ inputs.service }} --graph=dracula --key=${{ inputs.key }} --endpoint=${{ inputs.endpoint }}
+    - name: rover
       shell: bash
-      working-directory: .github/mavis
-      run: npx apollo service:check --serviceName=${{ inputs.service }} --graph=dracula --key=${{ inputs.key }} --endpoint=${{ inputs.endpoint }}
+      env:
+        APOLLO_KEY: ${{ inputs.key }}
+      run: |
+        curl -sSL https://rover.apollo.dev/nix/v0.22.0 | sh
+        echo "$HOME/.rover/bin" >> $GITHUB_PATH
+        rover subgraph introspect ${{ inputs.endpoint }} | rover subgraph check 'dracula@current' --name ${{ inputs.service }} --schema -
