@@ -46,7 +46,15 @@ runs:
     - name: rover install
       shell: bash
       run: |
-        curl -sSL https://rover.apollo.dev/nix/latest | sh
+        # # somehow, instead of correct version, our version is used, which causes 404 errors
+        # curl -sSL https://rover.apollo.dev/nix/latest | sh
+        # # instead downloading it manually
+        mkdir -p ~/.rover/bin
+        wget https://github.com/apollographql/rover/releases/download/v0.22.0/rover-v0.22.0-x86_64-unknown-linux-gnu.tar.gz
+        tar -xvf rover-v0.22.0-x86_64-unknown-linux-gnu.tar.gz -C ~/.rover
+        mv ~/.rover/dist/rover ~/.rover/bin/
+        rm -rf ~/.rover/dist
+        
         echo "$HOME/.rover/bin" >> $GITHUB_PATH
     - name: rover check
       shell: bash
