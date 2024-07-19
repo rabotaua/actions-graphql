@@ -26,8 +26,10 @@ jobs:
     steps:
       - name: get sha for '${{ inputs.repository }}@${{ inputs.commit }}'
         id: sha
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          result=$(curl -s "https://api.github.com/repos/${{ inputs.repository }}/commits/${{ inputs.commit }}" -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" | jq -r ".sha")
+          result=$(curl -s "https://api.github.com/repos/${{ inputs.repository }}/commits/${{ inputs.commit }}" -H "Authorization: Bearer $GITHUB_TOKEN" | jq -r ".sha")
           echo "result=$result" >> $GITHUB_OUTPUT
           echo $result
 
