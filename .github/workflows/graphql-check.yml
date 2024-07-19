@@ -6,7 +6,7 @@ on:
       repository:
         description: "repository, e.g.: rabotaua/my-awesome-app"
         required: true
-        default: "rabotaua/"
+        default: "rabotaua/vacancy-api"
       commit:
         description: "commit hash or branch name, default: main, sha can be full or short"
         required: true
@@ -24,6 +24,12 @@ jobs:
   federated-service-check:
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ secrets.GH_TOKEN }}
+
+      - run: echo $GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
       - name: get sha for '${{ inputs.repository }}@${{ inputs.commit }}'
         id: sha
         env:
