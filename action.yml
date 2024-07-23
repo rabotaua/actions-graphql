@@ -57,8 +57,6 @@ runs:
         echo "$HOME/.rover/bin" >> $GITHUB_PATH
     - name: rover check
       shell: bash
-      env:
-        APOLLO_KEY: ${{ inputs.key }}
       run: |
         rover subgraph introspect ${{ inputs.endpoint }} | rover subgraph check 'dracula@current' --name ${{ inputs.service }} --schema -
 
