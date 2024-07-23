@@ -48,6 +48,7 @@ runs:
       env:
          APOLLO_KEY: ${{ inputs.key }}
       run: |
+        echo "::group::rover install"
         # # somehow, instead of correct version, our version is used, which causes 404 errors
         # curl -sSL https://rover.apollo.dev/nix/latest | sh
         # # instead downloading it manually
@@ -56,6 +57,7 @@ runs:
         tar -xvf rover-v0.22.0-x86_64-unknown-linux-gnu.tar.gz -C ~/.rover
         mv ~/.rover/dist/rover ~/.rover/bin/
         rm -rf ~/.rover/dist
+        echo "::endgroup::"
         echo "$HOME/.rover/bin" >> $GITHUB_PATH
         
     - name: rover check
