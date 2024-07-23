@@ -68,8 +68,8 @@ runs:
         APOLLO_KEY: ${{ inputs.key }}
       run: |
         $variables = @{
-            id           = "dracula""
-            graphVariant = "current""
+            id           = "dracula"
+            graphVariant = "current"
           }
 
           $query = @"
