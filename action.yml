@@ -55,6 +55,8 @@ runs:
     #   run: npx apollo service:check --serviceName=${{ inputs.service }} --graph=dracula --key=${{ inputs.key }} --endpoint=${{ inputs.endpoint }}
     - name: rover install
       shell: bash
+      env:
+         APOLLO_KEY: ${{ inputs.key }}
       run: |
         # # somehow, instead of correct version, our version is used, which causes 404 errors
         # curl -sSL https://rover.apollo.dev/nix/latest | sh
