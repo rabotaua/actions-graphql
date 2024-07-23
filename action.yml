@@ -17,16 +17,6 @@ inputs:
     description: github token with read privileges
     required: true
 
-  graph:
-    description: github token with read privileges
-    required: false
-    default: "dracula"
-
-  graph_variant:
-    description: github token with read privileges
-    required: false
-    default: "current"
-
 runs:
   using: composite
   steps:
@@ -76,12 +66,10 @@ runs:
       shell: pwsh
       env:
         APOLLO_KEY: ${{ inputs.key }}
-        Graph: $${{ inputs.graph }}
-        GraphVariant: $${{ inputs.graph_variant }}
       run: |
         $variables = @{
-            id           = $env:Graph
-            graphVariant = $env:GraphVariant
+            id           = "dracula""
+            graphVariant = "current""
           }
 
           $query = @"
