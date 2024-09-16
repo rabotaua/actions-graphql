@@ -59,11 +59,11 @@ runs:
         rm -rf ~/.rover/dist
         echo "::endgroup::"
         echo "$HOME/.rover/bin" >> $GITHUB_PATH
-        
+
     - name: rover check
       shell: bash
       env:
-        APOLLO_KEY: ${{ inputs.key }}      
+        APOLLO_KEY: ${{ inputs.key }}
       run: |
         rover subgraph introspect ${{ inputs.endpoint }} | rover subgraph check 'dracula@current' --name ${{ inputs.service }} --schema -
 
@@ -109,7 +109,7 @@ runs:
         }
 
 
-        $ignored_enums = @("__DirectiveLocation", "__TypeKind", "ApplyPolicy")
+        $ignored_enums = @("__DirectiveLocation", "__TypeKind", "ApplyPolicy", "Currency", "Gender")
         $concrete_subgraph_schema = Invoke-RestMethod -Method Post ${{ inputs.endpoint }} -Headers @{"Content-Type" = "application/json"} -Body (ConvertTo-Json -Depth 100 -InputObject @{ query =  "{  __schema { types { name kind } } }" } )
         $concrete_subgraph_enums = $concrete_subgraph_schema.data.__schema.types | Where-Object -FilterScript { $_.kind -eq "ENUM" -and $_.name -notin $ignored_enums } | Select-Object -ExpandProperty name
 
