@@ -109,7 +109,7 @@ runs:
         }
 
 
-        $ignored_enums = @("__DirectiveLocation", "__TypeKind", "ApplyPolicy", "Currency", "Gender")
+        $ignored_enums = @("__DirectiveLocation", "__TypeKind", "ApplyPolicy", "Currency", "Gender", "VacancyDesignHeaderType", "VacancyPublicationType", "VacancyStatus")
         $concrete_subgraph_schema = Invoke-RestMethod -Method Post ${{ inputs.endpoint }} -Headers @{"Content-Type" = "application/json"} -Body (ConvertTo-Json -Depth 100 -InputObject @{ query =  "{  __schema { types { name kind } } }" } )
         $concrete_subgraph_enums = $concrete_subgraph_schema.data.__schema.types | Where-Object -FilterScript { $_.kind -eq "ENUM" -and $_.name -notin $ignored_enums } | Select-Object -ExpandProperty name
 
