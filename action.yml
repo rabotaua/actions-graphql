@@ -66,5 +66,3 @@ runs:
         APOLLO_KEY: ${{ inputs.key }}
       run: |
         rover subgraph introspect ${{ inputs.endpoint }} | rover subgraph check 'dracula@current' --name ${{ inputs.service }} --schema -
-        $joined_enums | Sort-Object Name | Select-Object -ExpandProperty Group | ForEach-Object { Write-Host "Enum:'$($_.enum)' from service:'$($_.name)' subgraph url:'$($_.url)'" }
-        exit 1;
