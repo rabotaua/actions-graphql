@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: actions-graphql
+  annotations:
+    github.com/project-slug: rabotaua/actions-graphql
+  tags:
+    - unknown-technology
+    - codesnoop
+spec:
+  owner: robota.ua
